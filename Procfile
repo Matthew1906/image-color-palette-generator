@@ -1,0 +1,1 @@
+web: gunicorn imageColorPaletteGenerator:app --preload
