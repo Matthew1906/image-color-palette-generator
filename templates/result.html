@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Generated Image
+    Generated Color Palette
 {% endblock %}
 
 {% block content %}
@@ -11,17 +11,15 @@
         <tr>
             <th>Color</th>
             <th>Hex Code</th>
-            <th>Count</th>
+            <th>Percentage of Color</th>
         </tr>
         {% for color, count in colors.items() %}
         <tr>
             <td>
-                <form action="{{url_for('copy_hexcode', hex_code=color)}}" method="POST">
-                    <input type="submit" value='' class='box' style="background-color:{{color}};" onclick="hex_copied()">
-                </form>
+                <button class='box' style="background-color:{{color}};" onclick="hex_copied('{{color}}')"></button>
             </td>
             <td>{{color}}</td>
-            <td>{{count}}</td>
+            <td>{{count}}%</td>
         </tr>
         {% endfor %}
     </table>
