@@ -6,7 +6,7 @@
 
 {% block content %}
 <div class="main">
-    <img src="{{image}}">
+    <img src="{{image}}" class='result-image'>
     <table class='table'>
         <tr>
             <th>Color</th>
@@ -16,9 +16,9 @@
         {% for color, count in colors.items() %}
         <tr>
             <td>
-                <a href="{{url_for('copy_hexcode', hex_code=color)}}" onclick="hex_copied()" class='link'>
-                    <div class = 'box' style="background-color:{{color}};"></div>
-                </a>
+                <form action="{{url_for('copy_hexcode', hex_code=color)}}" method="POST">
+                    <input type="submit" value='' class='box' style="background-color:{{color}};" onclick="hex_copied()">
+                </form>
             </td>
             <td>{{color}}</td>
             <td>{{count}}</td>

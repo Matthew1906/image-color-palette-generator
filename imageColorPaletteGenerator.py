@@ -56,25 +56,23 @@ def home():
             image_array = get_image(image_file)
             ## Retrieve the top 10 colors
             top_colors = find_top_colors(image_array)
+            if top_colors is False:
+                flash('Invalid input!')
+                return render_template('index.html', form=form)
             ## Reshape the top 10 colors into dictionary of hexcodes
             top_colors = reshape_colors(top_colors)
-            return redirect(url_for('result', image=image_uri, colors=top_colors))
+            return render_template('result.html', image=image_uri, colors=top_colors)
         else:
             flash('Invalid input, please make sure that the image is in jpg/png!')
     return render_template('index.html', form=form)
 
-@app.route('/result')
-@isNaN
-def result():
-    '''Show the analysis result'''
-    return render_template('result.html', image=image_uri, colors = top_colors)
-
-@app.route('/copy_color/<hex_code>')
+@app.route('/copy_color/<hex_code>', methods=['POST'])
 @isNaN
 def copy_hexcode(hex_code:str):
     '''Copy the hexcode of the selected color into clipboard'''
+    global image_uri, top_colors
     copy(hex_code)
-    return redirect(url_for('result', image=image_uri, colors=top_colors))
+    return render_template('result.html', image=image_uri, colors=top_colors)
 
 if __name__ == '__main__':
     app.run(debug=True)
