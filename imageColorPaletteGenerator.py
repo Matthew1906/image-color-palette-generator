@@ -67,7 +67,6 @@ def home():
     return render_template('index.html', form=form)
 
 @app.route('/copy_color/<hex_code>', methods=['POST'])
-@isNaN
 def copy_hexcode(hex_code:str):
     '''Copy the hexcode of the selected color into clipboard'''
     global image_uri, top_colors
